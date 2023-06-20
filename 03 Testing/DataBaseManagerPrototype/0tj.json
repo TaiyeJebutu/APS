@@ -1,0 +1,19 @@
+{
+  "UserInfo":[
+    {
+      "date": "01/01/20",
+      "wage": "20",
+      "workHours": "65"
+    },
+    {
+      "date": "01/02/20",
+      "wage": "20",
+      "workHours": "60"
+    },
+    {
+      "date": "01/03/20",
+      "wage": "20",
+      "workHours": "30"
+    }
+  ]
+}

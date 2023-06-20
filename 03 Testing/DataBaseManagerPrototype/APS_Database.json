@@ -15,15 +15,5 @@
      "password": "password",
      "ID": "1ap"
    }
- ],
-  "UserInfoFile": [
-    {
-      "ID": "0tj",
-      "file": "0tjInfo.json"
-    },
-    {
-      "ID": "0aw",
-      "file": "0tjInfo.json"
-    }
-  ]
+ ]
 }

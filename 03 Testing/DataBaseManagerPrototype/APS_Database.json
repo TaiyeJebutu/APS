@@ -1,0 +1,29 @@
+{
+ "LoginInfo": [
+   {
+     "username": "taiye",
+     "password": "jebutu",
+     "ID": "0tj"
+   },
+   {
+     "username": "alex",
+     "password": "wall",
+     "ID": "0aw"
+   },
+   {
+     "username": "Admin",
+     "password": "password",
+     "ID": "1ap"
+   }
+ ],
+  "UserInfoFile": [
+    {
+      "ID": "0tj",
+      "file": "0tjInfo.json"
+    },
+    {
+      "ID": "0aw",
+      "file": "0tjInfo.json"
+    }
+  ]
+}

@@ -29,7 +29,7 @@ def login():
         if checkUsernameAndPassword(username,password):
             return redirect(url_for('success', name=username))
         else:
-
+            pass
 
     else:
         username = request.args.get('username')

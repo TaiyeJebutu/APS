@@ -29,3 +29,8 @@ APS
 
 This folder shall be used and maintained to contain any and all testing and
 prototyping of APS
+
+### 03 Utilites
+
+This folder shall be used and maintained to contain any and all utilities needed
+for the repo such as automatic venv generation

@@ -1,0 +1,9 @@
+{% for key,value in form_data.items() %}
+<h2> {{key}}</h2>
+<p> {{value}}</p>
+{% endfor %}
+<br>
+<form action='/photo'>
+    <label for="photoBtn"> Take Photo</label><br>
+    <input type="button" value="Click Me !">
+</form>

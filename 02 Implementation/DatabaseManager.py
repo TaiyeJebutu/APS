@@ -50,6 +50,11 @@ class databaseManager:
             myCursor.execute(f"INSERT INTO `asp_assignment`.`employee_info` (`FullName`, `Address`, `Postcode`, `Email`, `Telephone`, `DateOfBirth`, `StartDate`, `AdminID`, `Level`, `Password`) "
                              f"VALUES ('{employeeData['FullName']}', '{employeeData['Address']}', '{employeeData['Postcode']}', '{employeeData['Email']}', '{employeeData['PhoneNo']}', '{employeeData['DoB']}', "
                              f"'{employeeData['StartDate']}', '{employeeData['AdminID']}', '{employeeData['Level']}', 'Password');")
+
+            myCursor.execute(f"INSERT INTO asp_assignment.pay_details (EmployeeID, PaymentDate, AnnualSalary, TaxCode, MonthlySalary, Pension) "
+                             f"SELECT EmployeeID, '{employeeData['PaymentDate']}', {employeeData['AnnualSalary']}, '{employeeData['TaxCode']}', {employeeData['MonthlySalary']}, {employeeData['Pension']} "
+                             f"FROM asp_assignment.employee_info "
+                             f"WHERE FullName='{employeeData['FullName']}' AND Level = {employeeData['Level']};")
             db.commit()
 
         except mysql.connector.Error as err:
@@ -67,3 +72,15 @@ class databaseManager:
             return "An error occurred"
 
         return myCursor.fetchall()
+
+    def getEmployeeInfo(self, employeeID):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            myCursor.execute(f"SELECT * from asp_assignment.employee_info e, asp_assignment.pay_details p where e.EmployeeID = {employeeID} and p.EmployeeID = {employeeID};")
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"
+
+        return myCursor.fetchone()

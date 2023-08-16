@@ -26,6 +26,9 @@ class Core:
     def getEmployees(self, userLevel):
         return self.DM.getEmployees(userLevel)
 
+    def getEmployeeInfo(self, employeeID):
+        return self.DM.getEmployeeInfo(employeeID)
+
 
         
 

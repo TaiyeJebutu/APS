@@ -1,6 +1,6 @@
 .btn{
     /*width: 140px;*/
-    border-radius: 20px; /*Makes oval shaped*/
+    /*border-radius: 20px;*/ /*Makes oval shaped*/
     border: 0; /*removes black border*/
     font-size: 0.8rem; /*Changes font size*/
     font-weight: 100;
@@ -36,6 +36,15 @@
 
 .btn--accent:hover{
     background: rgb(192, 53, 2);
+}
+
+.btn--back{
+    background: dodgerblue;
+    color: white;
+}
+
+.btn--back:hover{
+    background: rgb(0, 0, 0);
 }
 
 #navbar {

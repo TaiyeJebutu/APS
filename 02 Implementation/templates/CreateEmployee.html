@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Employee</title>
+    <link rel="stylesheet" href="../static/style.css" type="text/css" />
 </head>
 <body>
 <h1>Create Employee</h1>
+<button onclick="window.location.href = '/data';" class="btn btn--back" style="position:absolute; top:0px; right:20px">Back</button>
 <form action="#" method="post">
     <p>Enter Full Name <input type = "text" name = "FullName" /></p>
     <p>Enter Address <input type = "text" name = "Address" /></p>
@@ -21,6 +23,11 @@
         <option value="{{ item[0] }}">{{ item[0], item[1] }}</option>
         {% endfor %}
     </select>
+    <p>Enter Payment Date: <input type = "date" name = "PaymentDate" />></p>
+    <p>Enter Annual Salary <input type = "number" name = "AnnualSalary" />></p>
+    <p>Enter Tax Code: <input type = "text" name = "TaxCode" />></p>
+    <p>Enter Monthly Salary: <input type = "number" name = "MonthlySalary" />></p>
+    <p>Enter Pension: <input type = "number" name = "Pension" />></p>
     <input type="submit" value="Submit">
 </form>
 </body>

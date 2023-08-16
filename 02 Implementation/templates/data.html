@@ -5,12 +5,13 @@
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
 </head>
 <body>
-
-<div id="navbar">
+<form action="/EmployeeInfo" method="post">
+    <div id="navbar">
     {% for item in employees %}
-    <a><button> {{ item }} </button></a><br>
+    <a><button name = "Employee" value="{{ item }}"> {{ item }} </button></a><br>
     {% endfor %}
 </div>
+</form>
 
 <button onclick="window.location.href = '/CreateEmployee';" class="btn btn--primary">Create Employee</button>
 <button class="btn btn--secondary"> Click </button>

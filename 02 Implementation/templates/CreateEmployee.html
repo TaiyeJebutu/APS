@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Employee</title>
+</head>
+<body>
+<h1>Create Employee</h1>
+<form action="#" method="post">
+    <p>Enter Full Name <input type = "text" name = "FullName" /></p>
+    <p>Enter Address <input type = "text" name = "Address" /></p>
+    <p>Enter Postcode <input type = "text" name = "Postcode" /></p>
+    <p>Enter Email <input type = "email" name = "Email" /></p>
+    <p>Enter Phone Number <input type = "tel" name = "PhoneNo" /></p>
+    <p>Enter DoB <input type = "date" name = "DoB" /></p>
+    <p>Enter Start Date <input type = "date" name = "StartDate" /></p>
+    <p>Enter Level <input type = "number" name = "Level" /></p>
+    <label for="AdminID">Choose Admin</label>
+    <select name="AdminID" id="AdminID">
+        {% for item in AdminIDs %}
+        <option value="{{ item[0] }}">{{ item[0], item[1] }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

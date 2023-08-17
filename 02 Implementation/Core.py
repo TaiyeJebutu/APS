@@ -29,7 +29,8 @@ class Core:
     def getEmployeeInfo(self, employeeID):
         return self.DM.getEmployeeInfo(employeeID)
 
-
+    def updatePassword(self, newPassword, userID):
+        self.DM.updatePassword(newPassword, userID)
         
 
 

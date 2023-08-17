@@ -11,13 +11,16 @@ class gui(MethodView):
         app.add_url_rule("/data/", "data", self.data, methods=['POST', 'GET'])
         app.add_url_rule("/CreateEmployee/", "CreateEmployee", self.createEmployee, methods=['POST', 'GET'])
         app.add_url_rule("/EmployeeInfo/", "EmployeeInfo", self.employeeInfo, methods=['POST', 'GET'])
+        app.add_url_rule("/ChangePassword/", "ChangePassword", self.changePassword, methods=['POST', 'GET'])
         app.run(host='0.0.0.0', port=80)
         self.loggedIn = False
         self.userLevel = 0
+        self.userID = 0
 
     def form(self):
         if request.method == "POST":
             form_data = {"ID": request.form.get("ID"), "Password": request.form.get("Password")}
+            self.userID = form_data['ID']
             PasswordAndLevel = self.core.CheckLoginInfo(form_data)
             self.userLevel = PasswordAndLevel[1]
             if PasswordAndLevel[0]:
@@ -58,5 +61,13 @@ class gui(MethodView):
         employeeID = request.form.get("Employee")
         allInfo = self.core.getEmployeeInfo(employeeID[1])
         return render_template("EmployeeInfo.html", info=allInfo)
+
+    def changePassword(self):
+        if request.method == "POST":
+            newPassword = request.form.get("NewPassword")
+            self.core.updatePassword(newPassword, self.userID)
+            return redirect("/data")
+        else:
+            return render_template("ChangePassword.html")
 
 

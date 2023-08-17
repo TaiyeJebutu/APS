@@ -84,3 +84,14 @@ class databaseManager:
             return "An error occurred"
 
         return myCursor.fetchone()
+
+    def updatePassword(self, newPassword, userID):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            myCursor.execute(f"UPDATE asp_assignment.employee_info SET Password = '{newPassword}' Where EmployeeID = {userID};")
+            db.commit()
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"

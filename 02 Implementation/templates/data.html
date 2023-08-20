@@ -3,7 +3,6 @@
 <p> {{value}}</p>
 {% endfor %}
 <br>
-<form action='/photo'>
-    <label for="photoBtn"> Take Photo</label><br>
-    <input type="button" value="Click Me !">
+<form action="/photoPage/" method="post">
+    <input type="submit" value="Take Photo" name="click"/>
 </form>

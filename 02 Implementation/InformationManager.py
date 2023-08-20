@@ -11,5 +11,5 @@ class informationManager:
         g = self.location.getCurrentLocation()
         return g
 
-    def takePhoto(self):
-        self.photo.getPhoto()
+    def takePhoto(sel,userID):
+        return self.photo.getPhoto(userID)

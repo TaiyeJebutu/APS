@@ -1,9 +1,21 @@
-{% for key,value in form_data.items() %}
-<h2> {{key}}</h2>
-<p> {{value}}</p>
-{% endfor %}
-<br>
-<form action='/photo'>
-    <label for="photoBtn"> Take Photo</label><br>
-    <input type="button" value="Click Me !">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="../static/style.css" type="text/css" />
+</head>
+<body>
+<form action="/EmployeeInfo" method="post">
+    <div id="navbar">
+    {% for item in employees %}
+    <a><button name = "Employee" value="{{ item }}"> {{ item }} </button></a><br>
+    {% endfor %}
+</div>
 </form>
+
+<button onclick="window.location.href = '/CreateEmployee';" class="btn btn--primary">Create Employee</button>
+<button class="btn btn--secondary"> Click </button>
+<button onclick="window.location.href = '/ChangePassword';">Change Password</button>
+
+</body>
+</html>

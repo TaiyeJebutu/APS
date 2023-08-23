@@ -3,19 +3,38 @@
 <head>
     <title>Admin Page</title>
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<form action="/EmployeeInfo" method="post">
-    <div id="navbar">
-    {% for item in employees %}
-    <a><button name = "Employee" value="{{ item }}"> {{ item }} </button></a><br>
-    {% endfor %}
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="bx bx-menu" id="btn"></i>
+    <i class="bx bx-x" id="cancel"></i>
+</label>
+<div class="sidebar">
+    <header>Welcome</header>
+    <ul>
+        <li><a href="/CreateEmployee"><i>Create Employee</i></a></li>
+        <li><a href="/ChangePassword"><i>Change Password</i></a></li>
+        <li><a href="#"><i>Overview</i></a></li>
+        <li><a href="#"><i>Events</i></a></li>
+        <li><a href="#"><i>About</i></a></li>
+        <li><a href="#"><i>Services</i></a></li>
+        <li><a href="#"><i>Contact</i></a></li>
+    </ul>
 </div>
-</form>
-
-<button onclick="window.location.href = '/CreateEmployee';" class="btn btn--primary">Create Employee</button>
-<button class="btn btn--secondary"> Click </button>
-<button onclick="window.location.href = '/ChangePassword';">Change Password</button>
+<section>
+    <form action="/EmployeeInfo" method="post">
+        <div class="navbar">
+            <header>Select Employee</header>
+            <ul>
+                {% for item in employees %}
+                <li><a><button name = "Employee" value="{{ item }}" class="btn btn--navbar"> {{ item }} </button></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </form>
+</section>
 
 </body>
 </html>

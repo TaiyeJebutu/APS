@@ -95,3 +95,17 @@ class databaseManager:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
             return "An error occurred"
+
+    def updateEmployeeInfo(self, employeeID, form_data):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            for key in form_data:
+                if form_data[key] != '' and form_data[key] != None:
+                    myCursor.execute(f"UPDATE asp_assignment.employee_info e, asp_assignment.pay_details p SET {key} = '{form_data[key]}' WHERE e.EmployeeID = {employeeID} AND p.EmployeeID = {employeeID};")
+
+            db.commit()
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"

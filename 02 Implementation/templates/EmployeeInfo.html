@@ -4,30 +4,57 @@
     <meta charset="UTF-8">
     <title>Employee Info</title>
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<p>Employee Name: {{ info[1] }}</p><br>
-<p>Employee ID: {{ info[0] }}</p><br>
-<p>Address: {{ info[2] }}</p><br>
-<p>Postcode: {{ info[3] }}</p><br>
-<p>Email: {{ info[4] }}</p><br>
-<p>Telephone: {{ info[5] }}</p><br>
-<p>Date of Birth: {{ info[6] }}</p><br>
-<p>Start Date: {{ info[7] }}</p><br>
-<p>Admin ID: {{ info[8] }}</p><br>
-<p>Level: {{ info[9] }}</p><br>
-<p>Payment Date: {{ info[12] }}</p><br>
-<p>Annual Salary: {{ info[13] }}</p><br>
-<p>Tax code: {{ info[14] }}</p><br>
-<p>Monthly Salary: {{ info[15] }}</p><br>
-<p>Pension: {{ info[16] }}</p><br>
-<p>Location: </p><br>
-<p>Date Captured: </p><br>
-<p>Time Captured: </p><br>
-<p>Image: </p><br>
-<p>Date Captured: </p><br>
-<p>Time Captured: </p><br>
 
-<button onclick="window.location.href = '/data';" class="btn btn--back" style="position:absolute; top:0px; right:20px">Back</button>
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="bx bx-menu" id="btn"></i>
+    <i class="bx bx-x" id="cancel"></i>
+</label>
+<div class="sidebar">
+    <header>Employee Info</header>
+    <ul>
+        <li><a href="/data"><i>Home</i></a></li>
+        <li><a href="/CreateEmployee"><i>Create Employee</i></a></li>
+        <li><a href="#"><i>Overview</i></a></li>
+        <li><a href="#"><i>Events</i></a></li>
+        <li><a href="#"><i>About</i></a></li>
+        <li><a href="#"><i>Services</i></a></li>
+        <li><a href="#"><i>Contact</i></a></li>
+    </ul>
+</div>
+<section>
+  <div class="wrapper">
+      <div class="info">
+          <p>Employee Name: {{ info[1] }}</p><br>
+          <p>Employee ID: {{ info[0] }}</p><br>
+          <p>Address: {{ info[2] }}</p><br>
+          <p>Postcode: {{ info[3] }}</p><br>
+          <p>Email: {{ info[4] }}</p><br>
+          <p>Telephone: {{ info[5] }}</p><br>
+          <p>Date of Birth: {{ info[6] }}</p><br>
+          <p>Start Date: {{ info[7] }}</p><br>
+          <p>Admin ID: {{ info[8] }}</p><br>
+          <p>Level: {{ info[9] }}</p><br>
+          <p>Payment Date: {{ info[12] }}</p><br>
+          <p>Annual Salary: {{ info[13] }}</p><br>
+          <p>Tax code: {{ info[14] }}</p><br>
+          <p>Monthly Salary: {{ info[15] }}</p><br>
+          <p>Pension: {{ info[16] }}</p><br>
+          <p>Location: </p><br>
+          <p>Date Captured: </p><br>
+          <p>Time Captured: </p><br>
+          <p>Image: </p><br>
+          <p>Date Captured: </p><br>
+          <p>Time Captured: </p><br>
+      </div>
+
+      <div class="EditInfo">
+          <a href="/EditEmployeeInfo">Edit</a>
+      </div>
+  </div>
+</section>
 </body>
 </html>

@@ -12,10 +12,12 @@ class gui(MethodView):
         app.add_url_rule("/CreateEmployee/", "CreateEmployee", self.createEmployee, methods=['POST', 'GET'])
         app.add_url_rule("/EmployeeInfo/", "EmployeeInfo", self.employeeInfo, methods=['POST', 'GET'])
         app.add_url_rule("/ChangePassword/", "ChangePassword", self.changePassword, methods=['POST', 'GET'])
+        app.add_url_rule("/EditEmployeeInfo", "EditEmployeeInfo", self.editEmployeeInfo, methods=['POST', 'GET'])
         app.run(host='0.0.0.0', port=80)
         self.loggedIn = False
         self.userLevel = 0
         self.userID = 0
+        self.employeeID = 0
 
     def form(self):
         if request.method == "POST":
@@ -59,6 +61,7 @@ class gui(MethodView):
 
     def employeeInfo(self):
         employeeID = request.form.get("Employee")
+        self.employeeID = employeeID[1]
         allInfo = self.core.getEmployeeInfo(employeeID[1])
         return render_template("EmployeeInfo.html", info=allInfo)
 
@@ -69,5 +72,25 @@ class gui(MethodView):
             return redirect("/data")
         else:
             return render_template("ChangePassword.html")
+
+    def editEmployeeInfo(self):
+        if not self.loggedIn:
+            return redirect("/form")
+
+        if request.method == "POST":
+            form_data = {"FullName": request.form.get("FullName"), "Address": request.form.get("Address"),
+                         "Postcode": request.form.get("Postcode"), "Email": request.form.get("Email"),
+                         "PhoneNo": request.form.get("Telephone"), "DateOfBirth": request.form.get("DoB"),
+                         "StartDate": request.form.get("StartDate"), "AdminID": request.form.get("AdminID"),
+                         "Level": request.form.get("Level"), "PaymentDate": request.form.get("PaymentDate"),
+                         "AnnualSalary": request.form.get("AnnualSalary"), "TaxCode": request.form.get("TaxCode"),
+                         "MonthlySalary": request.form.get("MonthlySalary"), "Pension": request.form.get("Pension")}
+            self.core.updateEmployeeInfo(self.employeeID, form_data)
+            return redirect("/data")
+        else:
+            AdminIDs = self.core.getAdminIDs()
+            return render_template("/EditEmployeeInfo.html", AdminIDs=AdminIDs)
+
+
 
 

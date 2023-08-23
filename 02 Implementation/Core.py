@@ -31,6 +31,9 @@ class Core:
 
     def updatePassword(self, newPassword, userID):
         self.DM.updatePassword(newPassword, userID)
+
+    def updateEmployeeInfo(self, employeeID, form_data):
+        self.DM.updateEmployeeInfo(employeeID, form_data)
         
 
 

@@ -19,7 +19,7 @@ class takePhoto:
 
                 capture = 0
                 now = datetime.datetime.now()
-                p = os.path.sep.join(['shots', "User_{}_shot_{}.png".format(userID,str(now).replace(":", ''))])  # pic name
+                p = os.path.sep.join(['shots', "EmployeeID_{}_Date_{}.png".format(userID,str(now).replace(":", ''))])  # pic name
                 takePhoto.p = p
                 takePhoto.frame = frame
 

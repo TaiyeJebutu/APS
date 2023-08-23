@@ -1,9 +1,7 @@
-import datetime, time
-import os
+
 
 import cv2
-from flask import Flask, render_template, request, Response
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, Response
 from flask.views import MethodView
 
 from TakePhoto import takePhoto
@@ -47,37 +45,26 @@ class gui(MethodView):
         else:
             return render_template('index.html')
 
+
     def test(self):
         return render_template('test.html')
 
     def data(self):
+        selectedableEmployees = self.core.getEmployees(self.userLevel)
+        return render_template("data.html", employees=selectedableEmployees)
 
-        if request.method == 'POST':
-            location = self.core.getLocation()
-            form_data = {"ID": request.form.get("ID"),
-                         "Password": request.form.get("Password"),
-                         "Location": location}
-            gui.formData = form_data
-            return render_template('data.html', form_data=form_data)
-        else:
-            return render_template('data.html', form_data=gui.formData)
     def photoPage(self):
         return render_template('photoPage.html')
 
     def savePhoto(self):
         takePhoto.savePhoto()
-        return render_template('data.html', form_data= gui.formData)
+        return self.data()
 
 
 
     def video_feed(self):
-        return Response(takePhoto().getPhoto(gui.formData["ID"]), mimetype='multipart/x-mixed-replace; boundary=frame')
+        return Response(takePhoto().getPhoto(self.userID), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-
-
-        selectedableEmployees = self.core.getEmployees(self.userLevel)
-        return render_template("data.html", employees = selectedableEmployees)
 
 
     def createEmployee(self):
@@ -97,7 +84,11 @@ class gui(MethodView):
 
     def employeeInfo(self):
         employeeID = request.form.get("Employee")
-        allInfo = self.core.getEmployeeInfo(employeeID[1])
+
+        allInfo = {"db_info":self.core.getEmployeeInfo(employeeID[1])}
+        allInfo["location"] = self.core.getLocation()
+
+
         return render_template("EmployeeInfo.html", info=allInfo)
 
     def changePassword(self):

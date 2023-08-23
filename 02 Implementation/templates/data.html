@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
 </head>
 <body>
+
+<form action="/photoPage/" method="post">
+    <input type="submit" value="Take Photo" name="click"/>
+</form>
+
 <form action="/EmployeeInfo" method="post">
     <div id="navbar">
     {% for item in employees %}
@@ -12,9 +17,7 @@
     {% endfor %}
 </div>
 
-<form action="/photoPage/" method="post">
-    <input type="submit" value="Take Photo" name="click"/>
-</form>
+
 
 <button onclick="window.location.href = '/CreateEmployee';" class="btn btn--primary">Create Employee</button>
 <button class="btn btn--secondary"> Click </button>

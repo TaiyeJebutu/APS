@@ -39,4 +39,4 @@ class Core:
 
 entryPoint = Core()
 entryPoint.getLocation()
-entryPoint.getPhoto()
+

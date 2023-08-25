@@ -105,4 +105,5 @@ class databaseManager:
 
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
+
             return "An error occurred"

@@ -3,10 +3,7 @@ import mysql.connector
 
 class databaseManager:
     def __init__(self, Core):
-        core = Core
-        #db = self.connect()
-        #self.myCursor = db.cursor()
-        #self.Querie()
+        self.core = Core
 
     def connect(self):
         db = mysql.connector.connect(

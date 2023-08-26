@@ -1,30 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <title>Employee Infomation</title>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    </head>
-
-    <body>
+    <meta charset="UTF-8">
+    <title>Employee Information</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../static/style.css" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="bx bx-menu" id="btn"></i>
+    <i class="bx bx-x" id="cancel"></i>
+</label>
+<div class="sidebar">
+    <header>Welcome</header>
+    <ul>
+        <li><a href="/ChangePassword"><i>Change Password</i></a></li>
+        <li><a href="/photoPage"><i>Take Photo</i></a></li>
+        <li><a href="/form"><i>Logout</i></a></li>
+    </ul>
+</div>
+<section>
+    <div class="wrapper wrapper--secondary">
         <div class="w3-container">
-            <h2>Infomation</h2>
-
             <div class="w3-row">
-              <a href="javascript:void(0)" onclick="openCity(event, 'Personal_Infomation');">
-                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding">Peronsal Infomation</div>
+              <a href="javascript:void(0)" onclick="openCity(event, 'Personal_Information');">
+                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding" style="white-space: nowrap;">Personal Information</div>
               </a>
-              <a href="javascript:void(0)" onclick="openCity(event, 'Employee_Infomation');">
-                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding">Employee Infomation</div>
+              <a href="javascript:void(0)" onclick="openCity(event, 'Employee_Information');">
+                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding" style="white-space: nowrap;">Employee Information</div>
               </a>
               <a href="javascript:void(0)" onclick="openCity(event, 'Payroll');">
-                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding">Payroll</div>
+                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding" style="white-space: nowrap;">Payroll</div>
               </a>
             </div>
 
-            <div id="Personal_Infomation" class="w3-container city" style="display:none">
-              <h2>Personal infomation of the employee</h2>
-                <div class="w3-panel w3-blue-gray w3-round-xxlarge w3-margin-left">
+            <div id="Personal_Information" class="w3-container city" style="display:none">
+              <h2>Personal information of the employee</h2>
+                <div class="EmployeeInfo">
                     <p>Employee Name : {{info["db_info"][1]}}</Nav></p>
-                    <p>Date of Brith : {{info["db_info"][6]}}</Nav></p>
+                    <p>Date of Birth : {{info["db_info"][6]}}</Nav></p>
                     <p>Email : {{info["db_info"][4]}}</Nav></p>
                     <p>Telephone : {{info["db_info"][5]}}</Nav></p>
                     <p>Postcode : {{info["db_info"][3]}}</Nav></p>
@@ -32,9 +48,9 @@
                 </div>
             </div>
 
-            <div id="Employee_Infomation" class="w3-container city" style="display:none">
-              <h2>Employee infomation</h2>
-                <div class="w3-panel w3-blue-gray w3-round-xxlarge w3-margin-left">
+            <div id="Employee_Information" class="w3-container city" style="display:none">
+              <h2>Employee information</h2>
+                <div class="EmployeeInfo">
                     <p>Admin ID : {{info["db_info"][8]}}</Nav></p>
                     <p>Employee Level : {{info["db_info"][9]}}</Nav></p>
                     <p>Location : {{info["location"]}}</Nav></p>
@@ -43,8 +59,8 @@
             </div>
 
             <div id="Payroll" class="w3-container city" style="display:none">
-                <div class="w3-panel w3-blue-gray w3-round-xxlarge w3-margin-left">
-                    <h2>Payroll of the employee</h2>
+                <h2>Payroll of the employee</h2>
+                <div class="EmployeeInfo">
                     <p>Payment Date : {{info["db_info"][12]}}</Nav></p>
                     <p>Annual Salary : {{info["db_info"][13]}}</Nav></p>
                     <p>Monthly Salary : {{info["db_info"][15]}}</Nav></p>
@@ -69,4 +85,7 @@
             evt.currentTarget.firstElementChild.className += " w3-border-blue";
           }
           </script>
-    </body>
+    </div>
+</section>
+</body>
+</html>

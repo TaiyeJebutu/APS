@@ -13,6 +13,13 @@ class gui(MethodView):
     formData = None
     def __init__(self, Core):
         self.core = Core
+        self.addUrlRules()
+        self.loggedIn = False
+        self.userLevel = 0
+        self.loggedInUserID = 0
+        self.selectedEmployeeID = 0
+
+    def addUrlRules(self):
         app.add_url_rule("/form", "form", self.form, methods=['POST', 'GET'])
         app.add_url_rule("/test", "test", self.test)
         app.add_url_rule("/data/", "data", self.data, methods=['POST', 'GET'])
@@ -20,30 +27,32 @@ class gui(MethodView):
         app.add_url_rule("/EmployeeInfo/", "EmployeeInfo", self.employeeInfo, methods=['POST', 'GET'])
         app.add_url_rule("/ChangePassword/", "ChangePassword", self.changePassword, methods=['POST', 'GET'])
         app.add_url_rule("/EditEmployeeInfo", "EditEmployeeInfo", self.editEmployeeInfo, methods=['POST', 'GET'])
+        app.add_url_rule("/UserEmployeeInfo/", "UserEmployeeInfo", self.userEmployeeInfo, methods=['POST', 'GET'])
         app.add_url_rule("/photoPage/", 'photoPage', self.photoPage, methods=['POST', 'GET'])
         app.add_url_rule("/savePhoto/", 'savePhoto', self.savePhoto, methods=['POST', 'GET'])
         app.add_url_rule("/video_feed/", 'video_feed', self.video_feed, methods=['POST', 'GET'])
         app.run(host='0.0.0.0', port=80)
-        self.loggedIn = False
-        self.userLevel = 0
-        self.userID = 0
-        self.employeeID = 0
 
     def form(self):
         if request.method == "POST":
             form_data = {"ID": request.form.get("ID"), "Password": request.form.get("Password")}
-            self.userID = form_data['ID']
+            self.loggedInUserID = form_data['ID']
             PasswordAndLevel = self.core.CheckLoginInfo(form_data)
             self.userLevel = PasswordAndLevel[1]
             if PasswordAndLevel[0]:
                 self.loggedIn = True
                 if self.userLevel <= 1:
-                    return redirect("/test")
+                    try:
+                        return redirect("/UserEmployeeInfo")
+                    except Exception as e:
+                        print(f"An error occured: {e}")
+                        return redirect("/UserEmployeeInfo")
                 else:
                     return redirect('/data')
             else:
                 return "Incorrect Username or Password"
         else:
+            self.loggedIn = False
             return render_template('index.html')
 
     def test(self):
@@ -54,16 +63,19 @@ class gui(MethodView):
         return render_template("data.html", employees=selectedableEmployees)
 
     def photoPage(self):
-        return render_template('photoPage.html')
+        if self.userLevel <= 1:
+            userAccessibleTabs = [["Home", "/UserEmployeeInfo"], ["Change Password", "/ChangePassword"]]
+            return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
+        else:
+            userAccessibleTabs = [["Home", "/data"], ["Change Password", "/ChangePassword"], ["Create Employee", "/CreateEmployee"]]
+            return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
 
     def savePhoto(self):
         takePhoto.savePhoto()
-        return self.data()
-
-
+        return redirect('/data')
 
     def video_feed(self):
-        return Response(takePhoto().getPhoto(self.userID), mimetype='multipart/x-mixed-replace; boundary=frame')
+        return Response(takePhoto().getPhoto(self.loggedInUserID), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
     def createEmployee(self):
@@ -82,22 +94,37 @@ class gui(MethodView):
             return render_template("CreateEmployee.html", AdminIDs=AdminIDs)
 
     def employeeInfo(self):
-        employeeID = request.form.get("Employee")
-        self.employeeID = employeeID[1]
-        allInfo = self.core.getEmployeeInfo(employeeID[1])
+        if not self.loggedIn:
+            return redirect("/form")
+        try:
+            employeeID = request.form.get("Employee")
+            self.selectedEmployeeID = employeeID[1]
+            allInfo = self.core.getEmployeeInfo(employeeID[1])
 
-        allInfo = {"db_info":self.core.getEmployeeInfo(employeeID[1])}
-        allInfo["location"] = self.core.getLocation()
+            return render_template("EmployeeInfo.html", info=allInfo)
+        except Exception as e:
+            print(f"An error occurred {e}")
+            return redirect("/data")
 
-        return render_template("EmployeeInfo.html", info=allInfo)
+    def userEmployeeInfo(self):
+        allInfo = {"db_info": self.core.getEmployeeInfo(self.loggedInUserID), "location": self.core.getLocation()}
+        return render_template("UserEmployeeInfoV2.html", info=allInfo)
 
     def changePassword(self):
         if request.method == "POST":
             newPassword = request.form.get("NewPassword")
-            self.core.updatePassword(newPassword, self.userID)
-            return redirect("/data")
+            self.core.updatePassword(newPassword, self.loggedInUserID)
+            if self.userLevel <= 1:
+                return redirect("/UserEmployeeInfo")
+            else:
+                return redirect("/data")
         else:
-            return render_template("ChangePassword.html")
+            if self.userLevel <= 1:
+                usersAccessibleTabs = [["Home", "/UserEmployeeInfo"], ["Take Photo", "/photoPage"]]
+                return render_template("ChangePassword.html", tabs=usersAccessibleTabs)
+            else:
+                usersAccessibleTabs = [["Home", "/data"], ["Take Photo", "/photoPage"], ["Create Employee", "/CreateEmployee"]]
+                return render_template("ChangePassword.html", tabs=usersAccessibleTabs)
 
     def editEmployeeInfo(self):
         if not self.loggedIn:
@@ -111,7 +138,7 @@ class gui(MethodView):
                          "Level": request.form.get("Level"), "PaymentDate": request.form.get("PaymentDate"),
                          "AnnualSalary": request.form.get("AnnualSalary"), "TaxCode": request.form.get("TaxCode"),
                          "MonthlySalary": request.form.get("MonthlySalary"), "Pension": request.form.get("Pension")}
-            self.core.updateEmployeeInfo(self.employeeID, form_data)
+            self.core.updateEmployeeInfo(self.selectedEmployeeID, form_data)
             return redirect("/data")
         else:
             AdminIDs = self.core.getAdminIDs()

@@ -181,7 +181,6 @@ section{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 420px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(20px);
@@ -189,6 +188,15 @@ section{
     color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
+}
+
+.wrapper--primary{
+    width: 420px;
+}
+
+.wrapper--secondary{
+    width: 700px;
+    transition: height .5s;
 }
 
 .wrapper .EditInfo{
@@ -204,4 +212,16 @@ section{
 
 .EditInfo a:hover {
     text-decoration: underline;
+}
+
+.EmployeeInfo{
+    background: transparent;
+    color: white;
+    border-radius: 20px;
+    border: 0;
+    padding: 0.7rem 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }

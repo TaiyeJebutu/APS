@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Page</title>
+    <link rel="stylesheet" href="../static/style.css" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="bx bx-menu" id="btn"></i>
+    <i class="bx bx-x" id="cancel"></i>
+</label>
+<div class="sidebar">
+    <header>Welcome</header>
+    <ul>
+        {% for item in tabs %}
+        <li><a href="{{ item[1] }}"><i>{{ item[0] }}</i></a></li>
+        {% endfor %}
+        <li><a href="/form"><i>Logout</i></a></li>
+    </ul>
+</div>
+<section>
+    <div class="wrapper wrapper--primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8  offset-lg-2">
+
+
+                    <h2 class="mt-5">Camera</h2>
+                    <form method="post" action="{{ url_for('savePhoto') }}">
+                    <input type="submit" value="Take Photo" name="click"/>
+                    </form>
+                    <img src="{{ url_for('video_feed') }}" height="80%">
+                    <h3 style="font-family:courier;">Instructions:</h3>
+
+
+                    <li>Take Photo--Take still-shot and save in the 'shots' directory</li>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

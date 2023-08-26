@@ -9,7 +9,7 @@ class Core:
         self.Gui = gui(self)
 
     def getLocation(self):
-        self.IM.getGPS()
+        return self.IM.getGPS()
 
     def getPhoto(self):
         self.IM.takePhoto()

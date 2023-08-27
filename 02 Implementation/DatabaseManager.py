@@ -107,3 +107,27 @@ class databaseManager:
             print("Something went wrong: {}".format(err))
 
             return "An error occurred"
+
+    def addLocation(self, location, employeeID, datetime):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            self.checkAmountOfLocations(myCursor, employeeID)
+            myCursor.execute(f"INSERT INTO asp_assignment.location_info (`EmployeeID`, `Datetime`, `Location`)"
+                             f"VALUES ('{employeeID}', '{datetime}', '{location}');")
+            db.commit()
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"
+
+    def checkAmountOfLocations(self, myCursor, employeeID):
+        try:
+            myCursor.execute(f"SELECT * from asp_assignment.location_info WHERE EmployeeID = {employeeID};")
+            locations = myCursor.fetchall()
+            print(locations)
+            if len(locations) >= 5:
+                myCursor.execute(f"DELETE FROM asp_assignment.location_info WHERE EmployeeID = {employeeID} AND LocationID = {locations[0][0]}")
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"

@@ -41,7 +41,7 @@ class gui(MethodView):
             self.userLevel = PasswordAndLevel[1]
             if PasswordAndLevel[0]:
                 self.loggedIn = True
-                self.core.getLocation()
+                self.core.getLocation(self.loggedInUserID)
                 if self.userLevel <= 1:
                     try:
                         return redirect("/UserEmployeeInfo")

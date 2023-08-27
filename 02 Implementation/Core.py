@@ -8,8 +8,8 @@ class Core:
         self.IM = informationManager(self)
         self.Gui = gui(self)
 
-    def getLocation(self):
-        self.IM.createLocationThread()
+    def getLocation(self, employeeID):
+        self.IM.createLocationThread(employeeID)
 
     def stopLocation(self):
         self.IM.stopLocationThread()
@@ -37,6 +37,10 @@ class Core:
 
     def updateEmployeeInfo(self, employeeID, form_data):
         self.DM.updateEmployeeInfo(employeeID, form_data)
+
+    def addLocation(self, location, datetime, employeeID):
+        self.DM.addLocation(location, employeeID, datetime)
+
 
 entryPoint = Core()
 

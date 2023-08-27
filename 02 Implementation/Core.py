@@ -38,9 +38,5 @@ class Core:
     def updateEmployeeInfo(self, employeeID, form_data):
         self.DM.updateEmployeeInfo(employeeID, form_data)
 
-    def loggedIn(self):
-        return self.Gui.loggedIn
-
-
 entryPoint = Core()
 

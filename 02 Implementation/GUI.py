@@ -13,18 +13,11 @@ class gui(MethodView):
     formData = None
     def __init__(self, Core):
         self.core = Core
-        self.createGuiThread()
         self.loggedIn = False
         self.userLevel = 0
         self.loggedInUserID = 0
         self.selectedEmployeeID = 0
-
-    def createGuiThread(self):
-        try:
-            guiThread = threading.Thread(target=self.startGui)
-            guiThread.start()
-        except Exception as e:
-            print(f"Something went wrong: {e}")
+        self.startGui()
 
     def startGui(self):
         app.add_url_rule("/form", "form", self.form, methods=['POST', 'GET'])

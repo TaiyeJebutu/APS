@@ -1,8 +1,9 @@
 import requests
 import socket
 import json
-class getLocation:
 
+
+class getLocation:
     def get_ip(self):
         hostname = socket.gethostname()
         ip_address = socket.gethostbyname(hostname)
@@ -16,13 +17,13 @@ class getLocation:
         result = response.content.decode()
         result = result.split("(")[1].strip(")")
         result = json.loads(result)
-        # response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
-        # location_data = {
-        #     "ip": ip_address,
-        #     "city": response.get("city"),
-        #     "region": response.get("region"),
-        #     "country": response.get("country_name")
-        # }
-        return "location_data"
+        response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
+        location_data = {
+            "ip": ip_address,
+            "city": response.get("city"),
+            "region": response.get("region"),
+            "country": response.get("country_name")
+        }
+        return location_data
 
 

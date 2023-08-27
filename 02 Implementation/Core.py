@@ -9,7 +9,10 @@ class Core:
         self.Gui = gui(self)
 
     def getLocation(self):
-        return self.IM.getGPS()
+        self.IM.createLocationThread()
+
+    def stopLocation(self):
+        self.IM.stopLocationThread()
 
     def getPhoto(self):
         self.IM.takePhoto()
@@ -34,9 +37,10 @@ class Core:
 
     def updateEmployeeInfo(self, employeeID, form_data):
         self.DM.updateEmployeeInfo(employeeID, form_data)
-        
+
+    def loggedIn(self):
+        return self.Gui.loggedIn
 
 
 entryPoint = Core()
-entryPoint.getLocation()
 

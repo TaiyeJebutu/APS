@@ -1,4 +1,4 @@
-import cv2
+import cv2, threading
 from flask import Flask, render_template, request, redirect, Response
 
 from flask.views import MethodView
@@ -13,13 +13,20 @@ class gui(MethodView):
     formData = None
     def __init__(self, Core):
         self.core = Core
-        self.addUrlRules()
+        self.createGuiThread()
         self.loggedIn = False
         self.userLevel = 0
         self.loggedInUserID = 0
         self.selectedEmployeeID = 0
 
-    def addUrlRules(self):
+    def createGuiThread(self):
+        try:
+            guiThread = threading.Thread(target=self.startGui)
+            guiThread.start()
+        except Exception as e:
+            print(f"Something went wrong: {e}")
+
+    def startGui(self):
         app.add_url_rule("/form", "form", self.form, methods=['POST', 'GET'])
         app.add_url_rule("/test", "test", self.test)
         app.add_url_rule("/data/", "data", self.data, methods=['POST', 'GET'])
@@ -41,18 +48,21 @@ class gui(MethodView):
             self.userLevel = PasswordAndLevel[1]
             if PasswordAndLevel[0]:
                 self.loggedIn = True
+                self.core.getLocation()
                 if self.userLevel <= 1:
                     try:
                         return redirect("/UserEmployeeInfo")
                     except Exception as e:
-                        print(f"An error occured: {e}")
+                        print(f"An error occurred: {e}")
                         return redirect("/UserEmployeeInfo")
                 else:
                     return redirect('/data')
             else:
                 return "Incorrect Username or Password"
         else:
-            self.loggedIn = False
+            if self.loggedIn:
+                self.loggedIn = False
+                self.core.stopLocation()
             return render_template('index.html')
 
     def test(self):
@@ -107,7 +117,7 @@ class gui(MethodView):
             return redirect("/data")
 
     def userEmployeeInfo(self):
-        allInfo = {"db_info": self.core.getEmployeeInfo(self.loggedInUserID), "location": self.core.getLocation()}
+        allInfo = {"db_info": self.core.getEmployeeInfo(self.loggedInUserID), "location": "Location_data"}
         return render_template("UserEmployeeInfoV2.html", info=allInfo)
 
     def changePassword(self):

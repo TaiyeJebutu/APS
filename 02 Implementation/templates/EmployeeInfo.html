@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee Info</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -23,34 +24,80 @@
     </ul>
 </div>
 <section>
-  <div class="wrapper wrapper--primary">
-      <div class="info">
-          <p>Employee Name: {{ info[1] }}</p><br>
-          <p>Employee ID: {{ info[0] }}</p><br>
-          <p>Address: {{ info[2] }}</p><br>
-          <p>Postcode: {{ info[3] }}</p><br>
-          <p>Email: {{ info[4] }}</p><br>
-          <p>Telephone: {{ info[5] }}</p><br>
-          <p>Date of Birth: {{ info[6] }}</p><br>
-          <p>Start Date: {{ info[7] }}</p><br>
-          <p>Admin ID: {{ info[8] }}</p><br>
-          <p>Level: {{ info[9] }}</p><br>
-          <p>Payment Date: {{ info[12] }}</p><br>
-          <p>Annual Salary: {{ info[13] }}</p><br>
-          <p>Tax code: {{ info[14] }}</p><br>
-          <p>Monthly Salary: {{ info[15] }}</p><br>
-          <p>Pension: {{ info[16] }}</p><br>
-          <p>Location: </p><br>
-          <p>Date Captured: </p><br>
-          <p>Time Captured: </p><br>
-          <p>Image: </p><br>
-          <p>Date Captured: </p><br>
-          <p>Time Captured: </p><br>
-      </div>
+  <div class="wrapper wrapper--secondary">
+      <div class="w3-container">
+            <div class="w3-row">
+              <a href="javascript:void(0)" onclick="openCity(event, 'Personal_Information');">
+                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding" style="white-space: nowrap;">Personal Information</div>
+              </a>
+              <a href="javascript:void(0)" onclick="openCity(event, 'Employee_Information');">
+                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding" style="white-space: nowrap;">Employee Information</div>
+              </a>
+              <a href="javascript:void(0)" onclick="openCity(event, 'Payroll');">
+                <div class="w3-third tablink w3-bottombar w3-hover-light-blue w3-padding" style="white-space: nowrap;">Payroll</div>
+              </a>
+            </div>
 
+            <div id="Personal_Information" class="w3-container city" style="display:none">
+              <h2>Personal information of the employee</h2>
+                <div class="EmployeeInfo">
+                    <p>Employee Name : {{ personalInfo[1] }}</Nav></p>
+                    <p>Employee ID: {{ personalInfo[0] }}</Nav></p>
+                    <p>Date of Birth : {{ personalInfo[6] }}</Nav></p>
+                    <p>Email : {{ personalInfo[4] }}</Nav></p>
+                    <p>Telephone : {{ personalInfo[5] }}</Nav></p>
+                    <p>Postcode : {{ personalInfo[3] }}</Nav></p>
+                    <p>Employee Address : {{ personalInfo[2] }}</Nav></p>
+                </div>
+            </div>
+
+            <div id="Employee_Information" class="w3-container city" style="display:none">
+              <h2>Employee information</h2>
+                <div class="EmployeeInfo">
+                    <p>Admin ID : {{ personalInfo[8] }}</Nav></p>
+                    <p>Employee Level : {{ personalInfo[9] }}</Nav></p>
+                    <p>Location and Datetime:<br>
+                        {% for item in locationInfo %}
+                        {{ item[3] }} {{ item[2] }}<br>
+                        {% endfor %}
+                    </Nav></p>
+                    <p>Start Date : {{ personalInfo[7] }}</Nav></p>
+                </div>
+            </div>
+
+            <div id="Payroll" class="w3-container city" style="display:none">
+                <h2>Payroll of the employee</h2>
+                <div class="EmployeeInfo">
+                    <p>Payment Date : {{ personalInfo[12] }}</Nav></p>
+                    <p>Annual Salary : {{ personalInfo[13] }}</Nav></p>
+                    <p>Monthly Salary : {{ personalInfo[15] }}</Nav></p>
+                    <p>Tax Code : {{ personalInfo[14] }}</Nav></p>
+                    <p>Pension : {{ personalInfo[16] }}</Nav></p>
+                </div>
+            </div>
+          </div>
+
+          <script>
+          function openCity(evt, cityName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+              x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+              tablinks[i].className = tablinks[i].className.replace(" w3-border-blue", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.firstElementChild.className += " w3-border-blue";
+          }
+          </script>
+
+      {% for items in adminPage %}
       <div class="EditInfo">
           <a href="/EditEmployeeInfo">Edit</a>
       </div>
+      {% endfor %}
   </div>
 </section>
 </body>

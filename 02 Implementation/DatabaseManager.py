@@ -75,12 +75,15 @@ class databaseManager:
         myCursor = db.cursor()
         try:
             myCursor.execute(f"SELECT * from asp_assignment.employee_info e, asp_assignment.pay_details p where e.EmployeeID = {employeeID} and p.EmployeeID = {employeeID};")
+            allInfo = myCursor.fetchone()
+            myCursor.execute(f"SELECT * from asp_assignment.location_info where EmployeeID = {employeeID};")
+            locationInfo = myCursor.fetchall()
 
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
             return "An error occurred"
 
-        return myCursor.fetchone()
+        return allInfo, locationInfo
 
     def updatePassword(self, newPassword, userID):
         db = self.connect()
@@ -124,7 +127,6 @@ class databaseManager:
         try:
             myCursor.execute(f"SELECT * from asp_assignment.location_info WHERE EmployeeID = {employeeID};")
             locations = myCursor.fetchall()
-            print(locations)
             if len(locations) >= 5:
                 myCursor.execute(f"DELETE FROM asp_assignment.location_info WHERE EmployeeID = {employeeID} AND LocationID = {locations[0][0]}")
 

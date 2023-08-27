@@ -21,13 +21,11 @@ class gui(MethodView):
 
     def startGui(self):
         app.add_url_rule("/form", "form", self.form, methods=['POST', 'GET'])
-        app.add_url_rule("/test", "test", self.test)
         app.add_url_rule("/data/", "data", self.data, methods=['POST', 'GET'])
         app.add_url_rule("/CreateEmployee/", "CreateEmployee", self.createEmployee, methods=['POST', 'GET'])
         app.add_url_rule("/EmployeeInfo/", "EmployeeInfo", self.employeeInfo, methods=['POST', 'GET'])
         app.add_url_rule("/ChangePassword/", "ChangePassword", self.changePassword, methods=['POST', 'GET'])
         app.add_url_rule("/EditEmployeeInfo", "EditEmployeeInfo", self.editEmployeeInfo, methods=['POST', 'GET'])
-        app.add_url_rule("/UserEmployeeInfo/", "UserEmployeeInfo", self.userEmployeeInfo, methods=['POST', 'GET'])
         app.add_url_rule("/photoPage/", 'photoPage', self.photoPage, methods=['POST', 'GET'])
         app.add_url_rule("/savePhoto/", 'savePhoto', self.savePhoto, methods=['POST', 'GET'])
         app.add_url_rule("/video_feed/", 'video_feed', self.video_feed, methods=['POST', 'GET'])
@@ -44,10 +42,10 @@ class gui(MethodView):
                 self.core.getLocation(self.loggedInUserID)
                 if self.userLevel <= 1:
                     try:
-                        return redirect("/UserEmployeeInfo")
+                        return redirect("/EmployeeInfo")
                     except Exception as e:
                         print(f"An error occurred: {e}")
-                        return redirect("/UserEmployeeInfo")
+                        return redirect("/EmployeeInfo")
                 else:
                     return redirect('/data')
             else:
@@ -58,16 +56,13 @@ class gui(MethodView):
                 self.core.stopLocation()
             return render_template('index.html')
 
-    def test(self):
-        return render_template('test.html')
-
     def data(self):
         selectedableEmployees = self.core.getEmployees(self.userLevel)
         return render_template("data.html", employees=selectedableEmployees)
 
     def photoPage(self):
         if self.userLevel <= 1:
-            userAccessibleTabs = [["Home", "/UserEmployeeInfo"], ["Change Password", "/ChangePassword"]]
+            userAccessibleTabs = [["Home", "/EmployeeInfo"], ["Change Password", "/ChangePassword"]]
             return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
         else:
             userAccessibleTabs = [["Home", "/data"], ["Change Password", "/ChangePassword"], ["Create Employee", "/CreateEmployee"]]
@@ -99,31 +94,36 @@ class gui(MethodView):
     def employeeInfo(self):
         if not self.loggedIn:
             return redirect("/form")
-        try:
-            employeeID = request.form.get("Employee")
-            self.selectedEmployeeID = employeeID[1]
-            allInfo = self.core.getEmployeeInfo(employeeID[1])
 
-            return render_template("EmployeeInfo.html", info=allInfo)
-        except Exception as e:
-            print(f"An error occurred {e}")
-            return redirect("/data")
+        if request.method == "POST":
+            try:
+                employeeID = request.form.get("Employee")
+                self.selectedEmployeeID = employeeID[1]
+                personalInfo, locationInfo = self.core.getEmployeeInfo(employeeID[1])
+                return render_template("EmployeeInfo.html", personalInfo=personalInfo, locationInfo=locationInfo,
+                                       adminPage=[1])
+            except Exception as e:
+                print(f"An error occurred {e}")
+                return redirect("/data")
 
-    def userEmployeeInfo(self):
-        allInfo = {"db_info": self.core.getEmployeeInfo(self.loggedInUserID), "location": "Location_data"}
-        return render_template("UserEmployeeInfoV2.html", info=allInfo)
+        elif request.method == "GET":
+            if not self.loggedIn:
+                return redirect("/form")
+            personalInfo, locationInfo = self.core.getEmployeeInfo(self.loggedInUserID)
+            return render_template("EmployeeInfo.html", personalInfo=personalInfo, locationInfo=locationInfo,
+                                   adminPage=[])
 
     def changePassword(self):
         if request.method == "POST":
             newPassword = request.form.get("NewPassword")
             self.core.updatePassword(newPassword, self.loggedInUserID)
             if self.userLevel <= 1:
-                return redirect("/UserEmployeeInfo")
+                return redirect("/EmployeeInfo")
             else:
                 return redirect("/data")
         else:
             if self.userLevel <= 1:
-                usersAccessibleTabs = [["Home", "/UserEmployeeInfo"], ["Take Photo", "/photoPage"]]
+                usersAccessibleTabs = [["Home", "/EmployeeInfo"], ["Take Photo", "/photoPage"]]
                 return render_template("ChangePassword.html", tabs=usersAccessibleTabs)
             else:
                 usersAccessibleTabs = [["Home", "/data"], ["Take Photo", "/photoPage"], ["Create Employee", "/CreateEmployee"]]

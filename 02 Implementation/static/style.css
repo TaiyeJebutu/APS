@@ -1,77 +1,227 @@
 .btn{
-    /*width: 140px;*/
-    /*border-radius: 20px;*/ /*Makes oval shaped*/
+    width: 200px;
+    background: #042331;
+    color: white;
     border: 0; /*removes black border*/
-    font-size: 0.8rem; /*Changes font size*/
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px; /*Changes font size*/
     font-weight: 100;
-    margin: 1rem 0;
-    padding: 0.7rem 0.7rem; /*Size from left and top*/
+    margremin: 1 0;
+    padding: 0.7rem 0.7rem;
     text-transform: uppercase;
     white-space: nowrap;
     cursor: pointer;
 }
-
-.btn--primary{
-    background: rgb(8, 100, 240);
+/*
+.editBtn{
+    background: transparent;
     color: white;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+    adding: 0.7rem 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+}
+*/
+.editBtn:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
 
-.btn--primary:hover{
-    background: rgb(8, 123, 238);
-}
-
-.btn--secondary{
-    background: darkturquoise;
-    color: white;
-}
-
-.btn--secondary:hover{
-    background: rgb(2, 155, 158);
-}
-
-.btn--accent{
-    background: orangered;
-    color: white;
-}
-
-.btn--accent:hover{
-    background: rgb(192, 53, 2);
-}
-
-.btn--back{
-    background: dodgerblue;
-    color: white;
-}
-
-.btn--back:hover{
-    background: rgb(0, 0, 0);
-}
-
-#navbar {
-  background-color: #333; /* Black background color */
-  position: absolute; /* Make it stick/fixed */
+.navbar {
+  background-color: #042331;
+  position: fixed;
+  width: 300px;
   right: 0;
-  height: 200px;
+  height: 100%;
   overflow: scroll;
-  /*top: 50px;*/ /* Hide the navbar 50 px outside of the top view */
-  /*width: 100%;*/ /* Full width */
   transition: top 0.3s; /* Transition effect when sliding down (and up) */
 }
 
+.navbar header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background: #063146;
+    user-select: none;
+}
+
 /* Style the navbar links */
-#navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  text-decoration: none;
+.navbar ul a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+    transition: .4s;
 }
 
-#navbar a:hover {
-  background-color: #ddd;
-  color: black;
+.navbar ul a i{
+    margin-right: 16px;
 }
-/*
-*/
 
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.sidebar {
+    position: fixed;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #042331;
+    transition: all .5s ease;
+}
+
+.sidebar header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background: #063146;
+    user-select: none;
+}
+
+.sidebar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: white;
+    padding-left: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+    transition: .4s;
+}
+
+ul li:hover a{
+    padding-left: 50px;
+}
+
+.sidebar ul a i{
+    margin-right: 16px;
+}
+
+#check{
+    display: none;
+
+}
+
+label #btn, label #cancel{
+    position: absolute;
+    cursor: pointer;
+    background: #042331;
+    border-radius: 3px;
+}
+
+label #btn{
+    left: 40px;
+    top: 25px;
+    font-size: 35px;
+    color: white;
+    padding: 6px 12px;
+    transition: all .5s;
+}
+
+label #cancel{
+    z-index: 1111;
+    left: -195px;
+    top: 17px;
+    font-size: 30px;
+    color: #0a5275;
+    padding: 1px 1px;
+    transition: all .5s ease;
+}
+
+#check:checked ~ .sidebar {
+    left: 0;
+}
+
+#check:checked ~ label #btn {
+    left: 250px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#check:checked ~ label #cancel {
+    left: 245px;
+}
+
+#check:checked ~ section{
+    margin-left: 250px;
+}
+
+section{
+    background: url(loginBackground.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    transition: all .5s;
+}
+
+.wrapper {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.wrapper--primary{
+    width: 420px;
+}
+
+.wrapper--secondary{
+    width: 700px;
+    transition: height .5s;
+}
+
+.wrapper .EditInfo{
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.EditInfo a{
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.EditInfo a:hover {
+    text-decoration: underline;
+}
+
+.EmployeeInfo{
+    background: transparent;
+    color: white;
+    border-radius: 20px;
+    border: 0;
+    padding: 0.7rem 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}

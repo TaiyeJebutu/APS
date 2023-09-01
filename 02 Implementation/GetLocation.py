@@ -17,8 +17,7 @@ class getLocation:
         latLong = self.getLatLogn()
         geolocator = Nominatim(user_agent="geoapiExercises")
         location: Location = geolocator.geocode(latLong[0] + "," + latLong[1])
-        temp = location.address
-        location_data = location
+        location_data = location.address
 
         return location_data
 

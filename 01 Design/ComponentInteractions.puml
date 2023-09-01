@@ -1,0 +1,98 @@
+@startuml
+
+Core <|-- databaseManager
+Core <|-- informationManager
+Core <|-- gui
+
+informationManager <|-- TakePhoto
+informationManager <|-- getLocation
+informationManager <|-- Thread
+
+class Core{
+    --instance fields--
+    +databaseManager : DM
+    +informationManager : IM
+    +gui : GUI
+    --methods--
+    getLocation(self, employeeID)
+    stopLocation(self)
+    getPhoto(self)
+    CheckLoginInfo(self, data)
+    getAdminIDs(self)
+    addEmployeeToDatabase(self, employeeData)
+    getEmployees(self, userLevel)
+    getEmployeeInfo(self, employeeID)
+    updatePassword(self, newPassword, userID)
+    updateEmployeeInfo(self, employeeID, form_data)
+    addLocation(self, location, datetime, employeeID)
+}
+
+class databaseManager{
+    --instance fields--
+    +Core : core
+    --methods--
+    connect(self)
+    CheckLoginInfo(self, data)
+    getAdminIDs(self)
+    addEmployeeToDatabase(self, employeeData)
+    getEmployees(self, userLevel)
+    getEmployeeInfo(self, employeeID)
+    updatePassword(self, newPassword, userID)
+    updateEmployeeInfo(self, employeeID, form_data)
+    addLocation(self, location, employeeID, datetime)
+    checkAmountOfLocations(self, myCursor, employeeID)
+}
+
+class informationManager{
+    --instance fields--
+    +Core : core
+    +TakePhoto : photo
+    +getLocation : location
+    +Thread : locationThread
+    +Any : exit_event
+    --methods--
+    createLocationThread(self, employeeID)
+    startLocationThread(self, employeeID)
+    stopLocationThread(self)
+    takePhoto(self,userID)
+}
+
+class TakePhoto {
+    --Global Class Attributes--
+    # Any: camera
+    # str: p
+    # Any: frame
+    --methods--
+    getPhoto(self,userID)
+    savePhoto(cls)
+}
+
+class getLocation{
+    get_ip(self)
+    getCurrentLocation(self)
+}
+
+class Thread{
+}
+
+class gui{
+    --instance fields--
+    + core : Core
+    + loggedIn: bool
+    + userLevel: int
+    + loggedInUserID = int
+    + selectedUserID = int
+    --methods--
+    startGui(self)
+    form(self)
+    data(self)
+    photoPage(self)
+    savePhoto(self)
+    video_feed(self)
+    createEmployee(self)
+    employeeInfo(self)
+    changePassword(self)
+    editEmployeeInfo(self)
+}
+
+@enduml

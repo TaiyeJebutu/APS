@@ -8,8 +8,11 @@ class Core:
         self.IM = informationManager(self)
         self.Gui = gui(self)
 
-    def getLocation(self):
-        self.IM.getGPS()
+    def getLocation(self, employeeID):
+        self.IM.createLocationThread(employeeID)
+
+    def stopLocation(self):
+        self.IM.stopLocationThread()
 
     def getPhoto(self):
         self.IM.takePhoto()
@@ -31,9 +34,13 @@ class Core:
 
     def updatePassword(self, newPassword, userID):
         self.DM.updatePassword(newPassword, userID)
-        
+
+    def updateEmployeeInfo(self, employeeID, form_data):
+        self.DM.updateEmployeeInfo(employeeID, form_data)
+
+    def addLocation(self, location, datetime, employeeID):
+        self.DM.addLocation(location, employeeID, datetime)
 
 
 entryPoint = Core()
-entryPoint.getLocation()
 

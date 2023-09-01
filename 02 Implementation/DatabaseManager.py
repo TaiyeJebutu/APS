@@ -3,10 +3,7 @@ import mysql.connector
 
 class databaseManager:
     def __init__(self, Core):
-        core = Core
-        #db = self.connect()
-        #self.myCursor = db.cursor()
-        #self.Querie()
+        self.core = Core
 
     def connect(self):
         db = mysql.connector.connect(
@@ -78,12 +75,15 @@ class databaseManager:
         myCursor = db.cursor()
         try:
             myCursor.execute(f"SELECT * from asp_assignment.employee_info e, asp_assignment.pay_details p where e.EmployeeID = {employeeID} and p.EmployeeID = {employeeID};")
+            allInfo = myCursor.fetchone()
+            myCursor.execute(f"SELECT * from asp_assignment.location_info where EmployeeID = {employeeID};")
+            locationInfo = myCursor.fetchall()
 
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
             return "An error occurred"
 
-        return myCursor.fetchone()
+        return allInfo, locationInfo
 
     def updatePassword(self, newPassword, userID):
         db = self.connect()
@@ -91,6 +91,44 @@ class databaseManager:
         try:
             myCursor.execute(f"UPDATE asp_assignment.employee_info SET Password = '{newPassword}' Where EmployeeID = {userID};")
             db.commit()
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"
+
+    def updateEmployeeInfo(self, employeeID, form_data):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            for key in form_data:
+                if form_data[key] != '' and form_data[key] != None:
+                    myCursor.execute(f"UPDATE asp_assignment.employee_info e, asp_assignment.pay_details p SET {key} = '{form_data[key]}' WHERE e.EmployeeID = {employeeID} AND p.EmployeeID = {employeeID};")
+
+            db.commit()
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+
+            return "An error occurred"
+
+    def addLocation(self, location, employeeID, datetime):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            self.checkAmountOfLocations(myCursor, employeeID)
+            myCursor.execute(f"INSERT INTO asp_assignment.location_info (`EmployeeID`, `Datetime`, `Location`)"
+                             f"VALUES ('{employeeID}', '{datetime}', '{location}');")
+            db.commit()
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"
+
+    def checkAmountOfLocations(self, myCursor, employeeID):
+        try:
+            myCursor.execute(f"SELECT * from asp_assignment.location_info WHERE EmployeeID = {employeeID};")
+            locations = myCursor.fetchall()
+            if len(locations) >= 5:
+                myCursor.execute(f"DELETE FROM asp_assignment.location_info WHERE EmployeeID = {employeeID} AND LocationID = {locations[0][0]}")
 
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))

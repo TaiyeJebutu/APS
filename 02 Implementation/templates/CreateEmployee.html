@@ -4,31 +4,48 @@
     <meta charset="UTF-8">
     <title>Create Employee</title>
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<h1>Create Employee</h1>
-<button onclick="window.location.href = '/data';" class="btn btn--back" style="position:absolute; top:0px; right:20px">Back</button>
-<form action="#" method="post">
-    <p>Enter Full Name <input type = "text" name = "FullName" /></p>
-    <p>Enter Address <input type = "text" name = "Address" /></p>
-    <p>Enter Postcode <input type = "text" name = "Postcode" /></p>
-    <p>Enter Email <input type = "email" name = "Email" /></p>
-    <p>Enter Phone Number <input type = "tel" name = "PhoneNo" /></p>
-    <p>Enter DoB <input type = "date" name = "DoB" /></p>
-    <p>Enter Start Date <input type = "date" name = "StartDate" /></p>
-    <p>Enter Level <input type = "number" name = "Level" /></p>
-    <label for="AdminID">Choose Admin</label>
-    <select name="AdminID" id="AdminID">
-        {% for item in AdminIDs %}
-        <option value="{{ item[0] }}">{{ item[0], item[1] }}</option>
-        {% endfor %}
-    </select>
-    <p>Enter Payment Date: <input type = "date" name = "PaymentDate" />></p>
-    <p>Enter Annual Salary <input type = "number" name = "AnnualSalary" />></p>
-    <p>Enter Tax Code: <input type = "text" name = "TaxCode" />></p>
-    <p>Enter Monthly Salary: <input type = "number" name = "MonthlySalary" />></p>
-    <p>Enter Pension: <input type = "number" name = "Pension" />></p>
-    <input type="submit" value="Submit">
-</form>
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="bx bx-menu" id="btn"></i>
+    <i class="bx bx-x" id="cancel"></i>
+</label>
+<div class="sidebar">
+    <header>Create Employee</header>
+    <ul><li><a href="/data"><i>Home</i></a></li>
+        <li><a href="/photoPage"><i>Take Photo</i></a></li>
+        <li><a href="/ChangePassword"><i>Change Password</i></a></li>
+        <li><a href="/form"><i>Logout</i></a></li>
+
+    </ul>
+</div>
+<section>
+    <div class="wrapper wrapper--primary">
+        <form action="#" method="post">
+            <p>Enter Full Name <input type = "text" name = "FullName" /></p>
+            <p>Enter Address <input type = "text" name = "Address" /></p>
+            <p>Enter Postcode <input type = "text" name = "Postcode" /></p>
+            <p>Enter Email <input type = "email" name = "Email" /></p>
+            <p>Enter Phone Number <input type = "tel" name = "PhoneNo" /></p>
+            <p>Enter DoB <input type = "date" name = "DoB" /></p>
+            <p>Enter Start Date <input type = "date" name = "StartDate" /></p>
+            <p>Enter Level <input type = "number" name = "Level" /></p>
+            <label for="AdminID">Choose Admin</label>
+            <select name="AdminID" id="AdminID">
+                {% for item in AdminIDs %}
+                <option value="{{ item[0] }}">{{ item[0], item[1] }}</option>
+                {% endfor %}
+            </select>
+            <p>Enter Payment Date: <input type = "date" name = "PaymentDate" /></p>
+            <p>Enter Annual Salary <input type = "number" name = "AnnualSalary" /></p>
+            <p>Enter Tax Code: <input type = "text" name = "TaxCode" /></p>
+            <p>Enter Monthly Salary: <input type = "number" name = "MonthlySalary" /></p>
+            <p>Enter Pension: <input type = "number" name = "Pension" /></p>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>
 </body>
 </html>

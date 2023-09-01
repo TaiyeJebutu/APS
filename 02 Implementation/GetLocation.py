@@ -1,32 +1,24 @@
-import requests
-import socket
 import json
+from urllib.request import urlopen
+from geopy.geocoders import Nominatim
+from geopy.location import Location
 
 
 class getLocation:
-    def get_ip(self):
-        hostname = socket.gethostname()
-        ip_address = socket.gethostbyname(hostname)
-        return ip_address
+    def getLatLogn(self):
+        urlopen("http://ipinfo.io/json")
+        data = json.load(urlopen("http://ipinfo.io/json"))
+        lat = data['loc'].split(',')[0]
+        long = data['loc'].split(',')[1]
+        return(lat,long)
 
     def getCurrentLocation(self):
 
-        """ip_address = self.get_ip()
-        request_url = 'https://geolocation-db.com/jsonp/' + ip_address
-        response = requests.get(request_url)
-        result = response.content.decode()
-        result = result.split("(")[1].strip(")")
-        result = json.loads(result)
-        response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
-        location_data = f"{ip_address}, {response.get('city')}, {response.get('region')}, {response.get('country_name')}"
-        # location_data = {
-        #     "ip": ip_address,
-        #     "city": response.get("city"),
-        #     "region": response.get("region"),
-        #     "country": response.get("country_name")
-        # }
-        """
-        location_data = "Testing"
+        latLong = self.getLatLogn()
+        geolocator = Nominatim(user_agent="geoapiExercises")
+        location: Location = geolocator.geocode(latLong[0] + "," + latLong[1])
+        temp = location.address
+        location_data = location
 
         return location_data
 

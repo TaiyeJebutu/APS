@@ -6,6 +6,7 @@ participant InformationManager
 participant GUI
 participant GetLocation
 
+title __APS Login Sequence__
 
 Core --> Databasemanager : Databasemanager(self)
 Core --> InformationManager: Databasemanager(self)

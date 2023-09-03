@@ -72,7 +72,7 @@ class gui(MethodView):
             userAccessibleTabs = [["Home", "/EmployeeInfo"], ["Change Password", "/ChangePassword"]]
             return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
         else:
-            userAccessibleTabs = [["Home", "/data"], ["Change Password", "/ChangePassword"], ["Create Employee", "/CreateEmployee"]]
+            userAccessibleTabs = [["Home", "/data"], ["Change Password", "/ChangePassword"], ["Create Employee", "/CreateEmployee"], ["Personal Information", "/EmployeeInfo"]]
             return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
 
     def savePhoto(self):
@@ -143,7 +143,7 @@ class gui(MethodView):
                 usersAccessibleTabs = [["Home", "/EmployeeInfo"], ["Take Photo", "/photoPage"]]
                 return render_template("ChangePassword.html", tabs=usersAccessibleTabs)
             else:
-                usersAccessibleTabs = [["Home", "/data"], ["Take Photo", "/photoPage"], ["Create Employee", "/CreateEmployee"]]
+                usersAccessibleTabs = [["Home", "/data"], ["Take Photo", "/photoPage"], ["Create Employee", "/CreateEmployee"], ["Personal Information", "/EmployeeInfo"]]
                 return render_template("ChangePassword.html", tabs=usersAccessibleTabs)
 
     def editEmployeeInfo(self):

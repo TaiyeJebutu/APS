@@ -14,8 +14,14 @@ class Core:
     def stopLocation(self):
         self.IM.stopLocationThread()
 
-    def getPhoto(self):
-        self.IM.takePhoto()
+    def stopLocation(self):
+        self.IM.stopLocationThread()
+
+    def getPhoto(self, userID):
+        return self.IM.takePhoto(userID)
+
+    def savePhoto(self):
+        self.IM.savePhoto()
 
     def CheckLoginInfo(self, data):
         return self.DM.CheckLoginInfo(data)

@@ -1,0 +1,47 @@
+@startuml
+
+participant Core
+participant Databasemanager
+participant InformationManager
+participant GUI
+participant GetLocation
+participant TakePhoto
+
+title __APS Take Photo Sequence__
+
+
+Core --> Databasemanager : Databasemanager(self)
+Core --> InformationManager: Databasemanager(self)
+Core --> GUI: Databasemanager(self)
+
+
+
+GUI --> GUI : data(self)
+note left
+Employee HomePage
+end note
+
+GUI --> GUI: photoPage(self)
+note left
+Take Photo Page
+end note
+
+loop Camera Feed
+    GUI --> GUI: video_feed(self)
+    GUI -> Core: getPhoto(self.loggedInUserID)
+    Core -> InformationManager: takePhoto(userID)
+    InformationManager -> TakePhoto: getPhoto(self,userID)
+    note left
+    Displays live camera
+    feed to the employee
+    end note
+end
+
+GUI --> GUI: savePhoto(self)
+GUI -> Core: savePhoto(self)
+Core -> InformationManager: savePhoto()
+InformationManager -> TakePhoto: savePhoto()
+
+
+
+@enduml

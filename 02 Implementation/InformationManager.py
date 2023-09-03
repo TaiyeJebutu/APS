@@ -32,3 +32,6 @@ class informationManager:
 
     def takePhoto(self,userID):
         return self.photo.getPhoto(userID)
+
+    def savePhoto(self):
+        self.photo.savePhoto()

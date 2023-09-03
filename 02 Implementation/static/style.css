@@ -37,6 +37,28 @@
     border: 0;
     text-decoration: none;
     color: white;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+    adding: 0.7rem 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+}
+*/
+.editBtn:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.navbar {
+  background-color: #042331;
+  position: fixed;
+  width: 300px;
+  right: 0;
+  height: 100%;
+  overflow: scroll;
+  transition: top 0.3s; /* Transition effect when sliding down (and up) */
 }
 
 .navbar {
@@ -197,6 +219,8 @@ section{
     color: #fff;
     border-radius: 10px;
     padding: 30px 40px;
+    overflow-wrap: break-word;
+
 }
 
 .wrapper--primary{
@@ -312,3 +336,18 @@ label #deleteLabel:hover {
     text-decoration: underline;
 }
 
+.EditInfo a:hover {
+    text-decoration: underline;
+}
+
+.EmployeeInfo{
+    background: transparent;
+    color: white;
+    border-radius: 20px;
+    border: 0;
+    padding: 0.7rem 0.7rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}

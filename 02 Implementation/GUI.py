@@ -70,12 +70,11 @@ class gui(MethodView):
             return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
 
     def savePhoto(self):
-        takePhoto.savePhoto()
+        self.core.savePhoto()
         return redirect('/data')
 
     def video_feed(self):
-        return Response(takePhoto().getPhoto(self.loggedInUserID), mimetype='multipart/x-mixed-replace; boundary=frame')
-
+        return Response(self.core.getPhoto(self.loggedInUserID), mimetype='multipart/x-mixed-replace; boundary=frame')
 
     def createEmployee(self):
         if not self.loggedIn:

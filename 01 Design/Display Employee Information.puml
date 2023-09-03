@@ -1,0 +1,32 @@
+@startuml
+
+participant Core
+participant Databasemanager
+participant InformationManager
+participant GUI
+
+
+
+title __APS Display Employee Information Sequence__
+
+
+Core --> Databasemanager : Databasemanager(self)
+Core --> InformationManager: Databasemanager(self)
+Core --> GUI: Databasemanager(self)
+
+
+
+GUI --> GUI : data(self)
+note left
+Employee HomePage
+end note
+
+GUI --> GUI: employeeInfo(self)
+GUI -> Core: getEmployeeInfo(self.loggedInUserID)
+Core -> Databasemanager: getEmployeeInfo(employeeID)
+
+
+
+
+
+@enduml

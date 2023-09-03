@@ -13,7 +13,7 @@ class informationManager:
         self.exit_event = threading.Event()
 
     def createLocationThread(self, employeeID):
-        self.locationThread = threading.Thread(target=self.startLocationThread, daemon=True, args=(employeeID))
+        self.locationThread = threading.Thread(target=self.startLocationThread, daemon=True, args=(employeeID,))
         self.locationThread.setName("Location_thread")
         self.locationThread.start()
 

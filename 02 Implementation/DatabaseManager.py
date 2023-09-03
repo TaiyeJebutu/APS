@@ -133,3 +133,16 @@ class databaseManager:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
             return "An error occurred"
+
+    def deleteUser(self, employeeID):
+        db = self.connect()
+        myCursor = db.cursor()
+        try:
+            myCursor.execute(f"DELETE FROM asp_assignment.pay_details where EmployeeID = {employeeID};")
+            myCursor.execute(f"DELETE FROM asp_assignment.location_info where EmployeeID = {employeeID};")
+            myCursor.execute(f"DELETE FROM asp_assignment.employee_info where EmployeeID = {employeeID};")
+            db.commit()
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+            return "An error occurred"

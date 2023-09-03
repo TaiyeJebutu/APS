@@ -26,6 +26,7 @@ class gui(MethodView):
         app.add_url_rule("/EmployeeInfo/", "EmployeeInfo", self.employeeInfo, methods=['POST', 'GET'])
         app.add_url_rule("/ChangePassword/", "ChangePassword", self.changePassword, methods=['POST', 'GET'])
         app.add_url_rule("/EditEmployeeInfo", "EditEmployeeInfo", self.editEmployeeInfo, methods=['POST', 'GET'])
+        app.add_url_rule("/DeleteUser", "DeleteUser", self.deleteUser, methods=['POST', 'GET'])
         app.add_url_rule("/photoPage/", 'photoPage', self.photoPage, methods=['POST', 'GET'])
         app.add_url_rule("/savePhoto/", 'savePhoto', self.savePhoto, methods=['POST', 'GET'])
         app.add_url_rule("/video_feed/", 'video_feed', self.video_feed, methods=['POST', 'GET'])
@@ -75,8 +76,6 @@ class gui(MethodView):
     def video_feed(self):
         return Response(self.core.getPhoto(self.loggedInUserID), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-
     def createEmployee(self):
         if not self.loggedIn:
             return redirect("/form")
@@ -98,9 +97,9 @@ class gui(MethodView):
 
         if request.method == "POST":
             try:
-                employeeID = request.form.get("Employee")
-                self.selectedEmployeeID = employeeID[1]
-                personalInfo, locationInfo = self.core.getEmployeeInfo(employeeID[1])
+                employeeID = request.form.get("Employee").split(", ")
+                self.selectedEmployeeID = employeeID[0]
+                personalInfo, locationInfo = self.core.getEmployeeInfo(employeeID[0])
                 return render_template("EmployeeInfo.html", personalInfo=personalInfo, locationInfo=locationInfo,
                                        adminPage=[1])
             except Exception as e:
@@ -147,5 +146,14 @@ class gui(MethodView):
         else:
             AdminIDs = self.core.getAdminIDs()
             return render_template("/EditEmployeeInfo.html", AdminIDs=AdminIDs)
+
+    def deleteUser(self):
+        if not self.loggedIn:
+            return redirect("/form")
+
+        if request.method == "POST":
+            personalInfo = request.form.get("personalInfo").split(", ")
+            self.core.deleteUser(personalInfo[0])
+            return render_template("DeleteUser.html", personalInfo=personalInfo)
 
 

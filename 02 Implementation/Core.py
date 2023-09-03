@@ -14,6 +14,9 @@ class Core:
     def stopLocation(self):
         self.IM.stopLocationThread()
 
+    def stopLocation(self):
+        self.IM.stopLocationThread()
+
     def getPhoto(self, userID):
         return self.IM.takePhoto(userID)
 
@@ -43,6 +46,9 @@ class Core:
 
     def addLocation(self, location, datetime, employeeID):
         self.DM.addLocation(location, employeeID, datetime)
+
+    def deleteUser(self, employeeID):
+        self.DM.deleteUser(employeeID)
 
 
 entryPoint = Core()

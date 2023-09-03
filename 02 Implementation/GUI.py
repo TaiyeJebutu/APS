@@ -58,10 +58,16 @@ class gui(MethodView):
             return render_template('index.html')
 
     def data(self):
+        if not self.loggedIn:
+            return redirect("/form")
+
         selectedableEmployees = self.core.getEmployees(self.userLevel)
         return render_template("data.html", employees=selectedableEmployees)
 
     def photoPage(self):
+        if not self.loggedIn:
+            return redirect("/form")
+
         if self.userLevel <= 1:
             userAccessibleTabs = [["Home", "/EmployeeInfo"], ["Change Password", "/ChangePassword"]]
             return render_template('PhotoPageV2.html', tabs=userAccessibleTabs)
@@ -122,6 +128,9 @@ class gui(MethodView):
                                    adminPage=[], tabs=userAccessibleTabs)
 
     def changePassword(self):
+        if not self.loggedIn:
+            return redirect("/form")
+
         if request.method == "POST":
             newPassword = request.form.get("NewPassword")
             self.core.updatePassword(newPassword, self.loggedInUserID)

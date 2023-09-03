@@ -17,10 +17,9 @@
 <div class="sidebar">
     <header>Employee Info</header>
     <ul>
-        <li><a href="/data"><i>Home</i></a></li>
-        <li><a href="/CreateEmployee"><i>Create Employee</i></a></li>
-        <li><a href="/ChangePassword"><i>Change Password</i></a></li>
-        <li><a href="/photoPage"><i>Take Photo</i></a></li>
+        {% for item in tabs %}
+        <li><a href="{{ item[1] }}"><i>{{ item[0] }}</i></a></li>
+        {% endfor %}
         <li><a href="/form"><i>Logout</i></a></li>
     </ul>
 </div>
@@ -97,9 +96,32 @@
       {% for items in adminPage %}
       <div class="EditInfo">
           <a href="/EditEmployeeInfo">Edit</a>
+          <a><button type="submit" class="deleteBtn" onclick="openPopup()">Delete</button></a>
       </div>
       {% endfor %}
   </div>
+    <div class="popup" id="popup">
+        <header>Are you sure you want to delete user - {{ personalInfo[1] }}?</header>
+        <div class="delete-cancel">
+            <form action="/DeleteUser" method="post">
+                <button value="{{ personalInfo[0] }}, {{ personalInfo[1] }}" class="deleteBtn" name="personalInfo">Delete</button>
+            </form>
+            <button onclick="closePopup()" class="deleteBtn">Cancel</button>
+        </div>
+    </div>
 </section>
+
+<script>
+    let popup = document.getElementById("popup");
+
+    function openPopup(){
+        popup.classList.add("open-popup");
+    }
+
+    function closePopup(){
+        popup.classList.remove("open-popup");
+    }
+</script>
+
 </body>
 </html>

@@ -100,8 +100,11 @@ class gui(MethodView):
                 employeeID = request.form.get("Employee").split(", ")
                 self.selectedEmployeeID = employeeID[0]
                 personalInfo, locationInfo = self.core.getEmployeeInfo(employeeID[0])
+                userAccessibleTabs = [["Home", "/data"], ["Change Password", "/ChangePassword"],
+                                      ["Create Employee", "/CreateEmployee"], ["Take Photo", "/photoPage"],
+                                      ["Personal Information", "/EmployeeInfo"]]
                 return render_template("EmployeeInfo.html", personalInfo=personalInfo, locationInfo=locationInfo,
-                                       adminPage=[1])
+                                       adminPage=[1], tabs=userAccessibleTabs)
             except Exception as e:
                 print(f"An error occurred {e}")
                 return redirect("/data")
@@ -110,8 +113,13 @@ class gui(MethodView):
             if not self.loggedIn:
                 return redirect("/form")
             personalInfo, locationInfo = self.core.getEmployeeInfo(self.loggedInUserID)
+            if self.userLevel <= 1:
+                userAccessibleTabs = [["Change Password", "/ChangePassword"], ["Take Photo", "/photoPage"]]
+            else:
+                userAccessibleTabs = [["Home", "/data"], ["Change Password", "/ChangePassword"],
+                                      ["Create Employee", "/CreateEmployee"], ["Take Photo", "/photoPage"]]
             return render_template("EmployeeInfo.html", personalInfo=personalInfo, locationInfo=locationInfo,
-                                   adminPage=[])
+                                   adminPage=[], tabs=userAccessibleTabs)
 
     def changePassword(self):
         if request.method == "POST":

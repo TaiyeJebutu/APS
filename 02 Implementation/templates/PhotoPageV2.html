@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Photo Page</title>
     <link rel="stylesheet" href="../static/style.css" type="text/css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -23,16 +24,16 @@
 </div>
 <section>
     <div class="wrapper wrapper--primary">
-        <div class="container">
+        <div class="w3-container">
             <div class="row">
-                <div class="col-lg-8  offset-lg-2">
+                <div class="col-lg-8  offset-lg-2 w3-auto">
 
 
                     <h2 class="mt-5">Camera</h2>
                     <form method="post" action="{{ url_for('savePhoto') }}">
                     <input type="submit" value="Take Photo" name="click"/>
                     </form>
-                    <img src="{{ url_for('video_feed') }}" height="80%">
+                    <img src="{{ url_for('video_feed') }}" height="80%" width="300">
                     <h3 style="font-family:courier;">Instructions:</h3>
 
 

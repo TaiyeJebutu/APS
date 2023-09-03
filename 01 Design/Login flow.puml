@@ -1,0 +1,47 @@
+@startuml
+
+participant Core
+participant Databasemanager
+participant InformationManager
+participant GUI
+participant GetLocation
+
+title __APS Login Sequence__
+
+Core --> Databasemanager : Databasemanager(self)
+Core --> InformationManager: Databasemanager(self)
+Core --> GUI: Databasemanager(self)
+
+
+GUI --> GUI: form()
+note left
+Login Page
+end note
+
+GUI --> Core : CheckLoginInfo(self, data)
+Core --> Databasemanager: CheckLoginInfo(data)
+note right
+Checks if inputted
+data matches SQL
+database
+end note
+
+GUI --> Core: getLocation(self.loggedInUserID)
+Core --> InformationManager: createLocationThread(employeeID)
+ InformationManager --> InformationManager: startLocationThread(self, employeeID)
+loop Every 10 seconds
+    InformationManager --> GetLocation: getCurrentLocation()
+    InformationManager --> Core: addLocation(location, dt, employeeID)
+    Databasemanager --> Databasemanager: addLocation(location, employeeID, datetime)
+    note right
+    Stores the users location data into the SQL database
+    end note
+end
+
+GUI --> GUI : data(self)
+note left
+Employee HomePage
+end note
+
+
+@enduml

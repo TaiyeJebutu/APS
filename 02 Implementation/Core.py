@@ -41,6 +41,9 @@ class Core:
     def addLocation(self, location, datetime, employeeID):
         self.DM.addLocation(location, employeeID, datetime)
 
+    def deleteUser(self, employeeID):
+        self.DM.deleteUser(employeeID)
+
 
 entryPoint = Core()
 

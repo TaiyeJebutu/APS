@@ -30,6 +30,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
 
+.deleteBtn{
+    background: transparent;
+    cursor: pointer;
+    borer-radius: 10px;
+    border: 0;
+    text-decoration: none;
+    color: white;
+}
+
 .navbar {
   background-color: #042331;
   position: fixed;
@@ -200,17 +209,28 @@ section{
 }
 
 .wrapper .EditInfo{
-    text-align: center;
-    margin: 20px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: 15px 0 15px;
 }
 
-.EditInfo a{
+.wrapper .EditInfo a i input{
+    color: #fff;
+    text-decoration: none;
+}
+
+.wrapper .EditInfo a i input:hover {
+    text-decoration: underline;
+}
+
+.EditInfo a i{
     color: white;
     text-decoration: none;
     font-weight: 600;
 }
 
-.EditInfo a:hover {
+.EditInfo a i:hover {
     text-decoration: underline;
 }
 
@@ -225,3 +245,70 @@ section{
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
+
+#deleteBtn {
+    display: none;
+}
+
+label #deleteLabel{
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+label #deleteLabel:hover {
+    text-decoration: underline;
+}
+
+.popup{
+    position: fixed;
+    left: 50%;
+    top: -200px;
+    transform: translate(-50%, 0) scale(0.1);
+    width: 300px;
+    height: 200px;
+    color: white;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    visibility: hidden;
+    transition: all .5s ease;
+}
+
+.popup header{
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    user-select: none;
+    margin: 5px 5px 0;
+}
+
+.popup .delete-cancel{
+    display: flex;
+    justify-content: space-between;
+    margin: 60px 40px 10px;
+}
+
+.open-popup{
+    visibility: visible;
+    top: 5px;
+    transform: translate(-50%, 0) scale(1);
+}
+
+.deleteUser{
+    text-align: center;
+    text-decoration: none;
+    line-height: 20px;
+}
+
+.deleteUser a{
+    color: white;
+    font-weight: 600;
+}
+
+.deleteUser a:hover{
+    text-decoration: underline;
+}
+
